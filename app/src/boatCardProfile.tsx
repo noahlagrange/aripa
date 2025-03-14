@@ -55,7 +55,7 @@ const Boat = ({ boat }: { boat: { id: number; name: string; type: string } }) =>
             <h2>Create Tax</h2>
             <form onSubmit={handleCreateTax}>
               <label style={labelStyle}>
-                Price (€):
+                Price ($):
                 <input
                   type="number"
                   value={price}
@@ -94,23 +94,24 @@ export default Boat;
 
 const boatCardStyle: React.CSSProperties = {
   background: "#e0f7fa",
-  padding: "20px",
-  borderRadius: "8px",
-  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-  width: "200px",
+  padding: "30px",
+  borderRadius: "12px",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+  width: "250px",
   textAlign: "center",
   position: "relative",
+  fontSize: "1.2rem",
 };
 
 const createTaxButtonStyle: React.CSSProperties = {
-  marginTop: "10px",
-  padding: "10px",
+  marginTop: "15px",
+  padding: "15px",
   backgroundColor: "#28a745",
   color: "white",
   border: "none",
-  borderRadius: "5px",
+  borderRadius: "8px",
   cursor: "pointer",
-  fontSize: "1rem",
+  fontSize: "1.2rem",
 };
 
 const modalOverlayStyle: React.CSSProperties = {
@@ -119,7 +120,7 @@ const modalOverlayStyle: React.CSSProperties = {
   left: 0,
   width: "100vw",
   height: "100vh",
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  backgroundColor: "rgba(0, 0, 0, 0.6)",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -127,50 +128,55 @@ const modalOverlayStyle: React.CSSProperties = {
 
 const modalStyle: React.CSSProperties = {
   backgroundColor: "white",
-  padding: "20px",
-  borderRadius: "10px",
-  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-  width: "300px",
+  padding: "30px",
+  borderRadius: "12px",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+  width: "600px",
   textAlign: "center",
+  fontSize: "1.2rem",
 };
 
 const labelStyle: React.CSSProperties = {
   display: "block",
-  margin: "10px 0",
+  margin: "15px 0",
+  fontSize: "1.2rem",
 };
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  padding: "8px",
-  marginTop: "5px",
-  borderRadius: "5px",
-  border: "1px solid #ccc",
+  padding: "12px",
+  marginTop: "8px",
+  borderRadius: "8px",
+  border: "2px solid #ccc",
+  fontSize: "1.2rem",
 };
 
 const buttonContainerStyle: React.CSSProperties = {
-  marginTop: "15px",
+  marginTop: "20px",
   display: "flex",
   justifyContent: "space-between",
 };
 
 const confirmButtonStyle: React.CSSProperties = {
-  padding: "8px 12px",
+  padding: "12px 16px",
   backgroundColor: "#0077cc",
   color: "white",
   border: "none",
-  borderRadius: "5px",
+  borderRadius: "8px",
   cursor: "pointer",
   flex: 1,
-  marginRight: "5px",
+  marginRight: "10px",
+  fontSize: "1.2rem",
 };
 
 const cancelButtonStyle: React.CSSProperties = {
-  padding: "8px 12px",
+  padding: "12px 16px",
   backgroundColor: "#dc3545",
   color: "white",
   border: "none",
-  borderRadius: "5px",
+  borderRadius: "8px",
   cursor: "pointer",
   flex: 1,
-  marginLeft: "5px",
+  marginLeft: "10px",
+  fontSize: "1.2rem",
 };

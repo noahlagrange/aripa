@@ -293,7 +293,7 @@ const UserProfile = () => {
         
       <div style={taxesCardContainerStyle}>
   <div style={taxesSectionStyle}>
-    <h2 style={taxesHeadingStyle}>Taxes</h2>
+    <h2 style={taxesHeadingStyle}>Fuel bill</h2>
     <button onClick={showAllTaxes} style={buttonStyle}>
       See All Taxes
     </button>
@@ -373,7 +373,7 @@ const UserProfile = () => {
       {showEdittaxPopup && (
         <div style={popupOverlayStyle}>
           <div style={popupContainerStyle}>
-            <h2>Edit Tax</h2>
+            <h2>Edit Bill</h2>
             <label>Price:</label>
             <input type="number" value={editedTaxPrice} onChange={(e) => setEditedTaxPrice(Number(e.target.value))} style={inputStyle} />
             <label>Date:</label>
@@ -392,6 +392,67 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
+
+
+const popupOverlayStyle: React.CSSProperties = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
+const popupContainerStyle: React.CSSProperties = {
+  backgroundColor: "white",
+  padding: "50px", // Augmenté pour plus d'espace
+  borderRadius: "10px",
+  width: "700px", // Augmenté pour plus de visibilité
+  minHeight: "500px", // Augmenté pour un meilleur rendu
+  textAlign: "center",
+  fontFamily: "Arial, sans-serif",
+  fontSize: "1.2rem", // Augmenté pour un texte plus lisible
+};
+
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  padding: "15px", // Augmenté pour un meilleur confort d'utilisation
+  marginBottom: "15px", // Augmenté pour plus d'espacement
+  borderRadius: "5px",
+  border: "1px solid #ccc",
+  fontFamily: "Arial, sans-serif",
+  fontSize: "1.1rem", // Augmenté pour un meilleur confort visuel
+};
+
+const buttonContainerStyle: React.CSSProperties = {
+  display: "flex",
+  justifyContent: "space-between",
+  marginTop: "25px", // Augmenté pour plus d'espacement
+};
+
+const closeButtonStyle: React.CSSProperties = {
+  backgroundColor: "#ccc",
+  color: "white",
+  padding: "12px 25px", // Augmenté pour une meilleure accessibilité
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
+  fontFamily: "Arial, sans-serif",
+  fontSize: "1.1rem", // Augmenté pour plus de lisibilité
+};
+
+const editProfileButtonStyle: React.CSSProperties = {
+  backgroundColor: "#0077cc",
+  color: "white",
+  padding: "12px 25px", // Augmenté pour plus de confort
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
+  fontSize: "1.1rem", // Augmenté pour une meilleure lisibilité
+};
 
 
 const taxItemStyle: React.CSSProperties = {
@@ -565,64 +626,5 @@ const sectionHeadingStyle: React.CSSProperties = {
 const taxesListStyle: React.CSSProperties = {
   listStyleType: "none",
   padding: 0,
-  fontFamily: "Arial, sans-serif",
-};
-
-
-const popupOverlayStyle: React.CSSProperties = {
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
-const popupContainerStyle: React.CSSProperties = {
-  backgroundColor: "white",
-  padding: "30px",
-  borderRadius: "10px",
-  width: "400px",
-  textAlign: "center",
-  fontFamily: "Arial, sans-serif",
-};
-
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  padding: "10px",
-  marginBottom: "10px",
-  borderRadius: "5px",
-  border: "1px solid #ccc",
-  fontFamily: "Arial, sans-serif",
-};
-
-const buttonContainerStyle: React.CSSProperties = {
-  display: "flex",
-  justifyContent: "space-between",
-  marginTop: "20px",
-};
-
-const closeButtonStyle: React.CSSProperties = {
-  backgroundColor: "#ccc",
-  color: "white",
-  padding: "10px 20px",
-  border: "none",
-  borderRadius: "5px",
-  cursor: "pointer",
-  fontFamily: "Arial, sans-serif",
-};
-
-const editProfileButtonStyle: React.CSSProperties = {
-  backgroundColor: "#0077cc",
-  color: "white",
-  padding: "10px 20px",
-  border: "none",
-  borderRadius: "5px",
-  cursor: "pointer",
-  fontSize: "1rem",
-  marginTop: "20px",
   fontFamily: "Arial, sans-serif",
 };
