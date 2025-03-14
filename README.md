@@ -74,7 +74,7 @@ Cela arrêtera tous les services et supprimera les conteneurs, mais conservera l
 Voici une vue d'ensemble de l'interface utilisateur de l'application :
 
 - Dans le **cercle bleu**, un bouton permet d'ouvrir un popup pour créer un client.
-- Dans le **cercle vert**, une **navbar** est présente, permettant de rediriger vers la page client.
+- Dans le **cercle vert**, une **navbar** est présente, permettant de rediriger vers la page Clients ou Boats.
 - Dans le **cercle rouge**, vous trouverez un bouton **Disconnect** pour déconnecter l'utilisateur.
 
 #### Page des Clients
@@ -115,11 +115,9 @@ La **page Profil Client** est l'endroit où vous pouvez gérer tous les aspects 
 
 **Note importante** : Si vous ajoutez une taxe de carburant, il est recommandé de **recliquer sur la carte du bateau** ou sur le bouton **See All Taxes** pour rafraîchir la page et voir les changements apportés.
 
-![Example Image](./assets/profile1.png)
-
 ---
 
-![Example Image](./assets/produc2.png)
+![Example Image](./assets/prod.png)
 
 Voici une explication de la structure de votre base de données et une mise à jour de votre README pour refléter cette structure :
 
