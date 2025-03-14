@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { VERIFY_ACCOUNT } from './query'; // Assuming VERIFY_ACCOUNT is defined in a separate query file
+import { VERIFY_ACCOUNT } from './query';
 
 const LoginPage: React.FC = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
 
-    // Use the VERIFY_ACCOUNT mutation hook
     const [verifyAccount] = useMutation(VERIFY_ACCOUNT, {
         onCompleted: (data) => {
             if (data.verifyAccount) {
-                // Handle successful login, e.g., redirect to home page
+                localStorage.setItem('isLoggedIn', 'true');
                 window.location.href = '/Home';
             } else {
                 setError('Invalid credentials');
@@ -25,7 +24,7 @@ const LoginPage: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        setError(null); // Reset error on new attempt
+        setError(null);
 
         if (name.length === 0) {
             setError('Name is required');
@@ -36,7 +35,6 @@ const LoginPage: React.FC = () => {
             return;
         }
 
-        // Call the verifyAccount mutation
         verifyAccount({ variables: { name, password } });
     };
 
@@ -76,7 +74,6 @@ const LoginPage: React.FC = () => {
     );
 };
 
-// Updated styles for a bigger UI
 const styles = {
     container: {
         display: 'flex',

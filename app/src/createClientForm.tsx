@@ -28,7 +28,7 @@ const CreateClientForm: React.FC<CreateClientFormProps> = ({ onClose }) => {
   return (
     <div style={popupOverlayStyle}>
       <div style={popupStyle}>
-        <h2>Create New Client</h2>
+        <h2 style={titleStyle}>Create New Client</h2>
         <form onSubmit={handleSubmit} style={formStyle}>
           <input
             type="text"
@@ -83,13 +83,12 @@ const popupOverlayStyle: React.CSSProperties = {
 
 const popupStyle: React.CSSProperties = {
   backgroundColor: 'white',
-  padding: '20px',
+  padding: '40px', 
   borderRadius: '10px',
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-  width: '33%',
-  height: '33%', 
-  maxWidth: '400px',
-  maxHeight: '500px', 
+  width: '50%', 
+  maxWidth: '600px',
+  height: 'auto',
   overflowY: 'auto',
 };
 
@@ -97,13 +96,13 @@ const formStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '10px',
+  gap: '15px', 
 };
 
 const inputStyle: React.CSSProperties = {
-  padding: '10px',
+  padding: '12px',  
   width: '100%',
-  fontSize: '14px',
+  fontSize: '16px',  
   border: '1px solid #ccc',
   borderRadius: '5px',
 };
@@ -115,7 +114,7 @@ const buttonContainerStyle: React.CSSProperties = {
 };
 
 const submitButtonStyle: React.CSSProperties = {
-  padding: '10px 20px',
+  padding: '12px 20px',  
   backgroundColor: '#4CAF50',
   color: 'white',
   border: 'none',
@@ -124,12 +123,18 @@ const submitButtonStyle: React.CSSProperties = {
 };
 
 const cancelButtonStyle: React.CSSProperties = {
-  padding: '10px 20px',
+  padding: '12px 20px',  
   backgroundColor: '#f44336',
   color: 'white',
   border: 'none',
   borderRadius: '5px',
   cursor: 'pointer',
+};
+
+const titleStyle: React.CSSProperties = {
+  textAlign: 'center',  
+  fontSize: '24px',  
+  marginBottom: '20px',  
 };
 
 export default CreateClientForm;

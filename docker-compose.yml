@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: postgres_container
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: my_database
+    ports:
+      - "5432:5432"
+
+  app:
+    container_name: nestjs_app
+    build:
+      context: ./db/db 
+      dockerfile: Dockerfile 
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgres://root:root@db:5432/my_database"
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./db/db:/usr/src/app  
+    command: npm run start:dev
+
+  react:
+    container_name: react_app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app:/usr/src/app
+    working_dir: /usr/src/app
+    command: npm start
+    environment:
+      - CHOKIDAR_USEPOLLING=true

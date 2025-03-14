@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { CREATE_BOAT, ADD_BOAT_TO_USER } from './query';  // Import both mutations
+import { CREATE_BOAT, ADD_BOAT_TO_USER } from './query';  
 import { User } from './graphqlTypes';
 
 interface CreateBoatFormProps {
@@ -11,7 +11,7 @@ interface CreateBoatFormProps {
 const CreateBoatForm: React.FC<CreateBoatFormProps> = ({ onClose, users }) => {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
-  const [ownerId, setOwnerId] = useState<string>(''); // Keep ownerId as string
+  const [ownerId, setOwnerId] = useState<string>(''); 
   const [createBoat] = useMutation(CREATE_BOAT);
   const [addBoatToUser] = useMutation(ADD_BOAT_TO_USER);
 
@@ -19,19 +19,17 @@ const CreateBoatForm: React.FC<CreateBoatFormProps> = ({ onClose, users }) => {
     e.preventDefault();
     if (ownerId) {
       try {
-        // Create the boat first
         const { data: boatData } = await createBoat({
-          variables: { name: name, type: type, owner: parseInt(ownerId) }, // Ensure ownerId is a float
+          variables: { name: name, type: type, owner: parseInt(ownerId) },
         });
 
         if (boatData) {
           console.log('Boat created:', boatData.createBoat);
           const boatId = boatData.createBoat.id;
           await addBoatToUser({
-            variables: { userId: parseFloat(ownerId), boatId: parseFloat(boatData.createBoat.id) }, // Ensure both are floats
+            variables: { userId: parseFloat(ownerId), boatId: parseFloat(boatData.createBoat.id) }, 
           });
 
-          // Reset form fields and close the modal
           setName('');
           setType('');
           setOwnerId('');
@@ -99,7 +97,7 @@ const popupOverlayStyle: React.CSSProperties = {
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi-transparent background
+  backgroundColor: 'rgba(0, 0, 0, 0.5)', 
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -111,8 +109,8 @@ const popupStyle: React.CSSProperties = {
   padding: '20px',
   borderRadius: '10px',
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-  width: '33%', // Set width to 1/3 of the screen width
-  height: '33%', // Set height to 1/3 of the screen height
+  width: '33%', 
+  height: '33%', 
 };
 
 const formStyle: React.CSSProperties = {

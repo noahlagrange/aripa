@@ -182,6 +182,7 @@ export const GET_BOAT_TAXES = gql`
       id
       price
       date
+      boatId
     }
   }
 `;
@@ -244,5 +245,15 @@ export const CREATE_ACCOUNT = gql`
 export const VERIFY_ACCOUNT = gql`
   mutation VerifyAccount($name: String!, $password: String!) {
     verifyAccount(name: $name, password: $password)
+  }
+`;
+
+export const UPDATE_TAX = gql`
+  mutation UpdateTaxById($id: Int!, $price: Int!, $date: String!) {
+    updateTaxById(id: $id, price: $price, date: $date) {
+      id
+      price
+      date
+    }
   }
 `;

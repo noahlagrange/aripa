@@ -10,11 +10,13 @@ import {
   UPDATE_USER,
   UPDATE_BOAT,
   DELETE_USER,
+  UPDATE_TAX
 } from "./query";
 import Boat from "./boatCardProfile";
 import { IBoat, Tax } from "./graphqlTypes";
 import CreateBoatForm from "./createBoatForm";
 import { Link } from "react-router-dom";
+import NavBar from "./navbar";
 
 
 const UserProfile = () => {
@@ -39,8 +41,7 @@ const UserProfile = () => {
   }, [data]);
 
   const [updateUser] = useMutation(UPDATE_USER);
-
-  // State for Edit Profile Popup
+  const [selctedTax, setSelectedTax] = useState(0);
   const [showEditPopup, setShowEditPopup] = useState(false);
   const [editedName, setEditedName] = useState("");
   const [editedEmail, setEditedEmail] = useState("");
@@ -49,6 +50,30 @@ const UserProfile = () => {
   const [showEditboatPopup, setShowEditboatPopup] = useState(false);
   const [editedBoatName, setEditedBoatName] = useState("");
   const [editedBoatType, setEditedBoatType] = useState("");
+
+  const [showEdittaxPopup, setShowEdittaxPopup] = useState(false);
+  const [editedTaxPrice, setEditedTaxPrice] = useState(0);
+  const [editedTaxDate, setEditedTaxDate] = useState("");
+
+  const handleUpdateTax = async () => {
+    try {
+      const { data } = await updateTax({
+        variables: {
+          id: selctedTax,
+          price: editedTaxPrice,
+          date: editedTaxDate,
+        },
+      });
+
+      if (data?.updateTaxById) {
+        const updatedTax = data.updateTaxById;
+        setSelectedBoat(selectedBoat.map((tax) => (tax.id === updatedTax.id ? updatedTax : tax)));
+        setShowEdittaxPopup(false);
+      }
+    } catch (error) {
+      console.error("Error updating tax:", error);
+    }
+  }
 
   useEffect(() => {
     if (user) {
@@ -61,6 +86,7 @@ const UserProfile = () => {
 
   const [updateBoat] = useMutation(UPDATE_BOAT);
 
+  const [updateTax] = useMutation(UPDATE_TAX);
 
   const deleteBoat = async (boatId: number) => {
     if (!boatId) {
@@ -186,6 +212,9 @@ const UserProfile = () => {
 
 
   return (
+    <div>
+      <NavBar />
+
     <div style={pageContainerStyle}>
       <header style={headerStyle}>
         <h1>{user.name}'s Profile</h1>
@@ -211,7 +240,7 @@ const UserProfile = () => {
                 console.error('Error during mutation:', error);
               });;
 
-              window.location.href = "/";
+              window.location.href = "/Home";
             }
             }} style={editProfileButtonStyle}>
             Delete Account
@@ -276,9 +305,22 @@ const UserProfile = () => {
               <span style={priceStyle}>Price: ${tax.price}</span>
               <span style={dateStyle}>Date: {tax.date}</span>
               Boat:  {boats.find((boat) => boat.id === tax.boatId)?.name}
+
+              
             <button onClick={() => deleteTax(tax.id)} style={deleteButtonStyle}>
               Delete
             </button>
+            <button
+                onClick={() => {
+                  setShowEdittaxPopup(true);
+                  setSelectedTax(tax.id);
+                  setEditedTaxPrice(tax.price);
+                  setEditedTaxDate(tax.date);
+                }}
+                style={deleteButtonStyle}
+              >
+                Edit
+              </button>
             </div>
 
           </li>
@@ -327,7 +369,24 @@ const UserProfile = () => {
         </div>)
       }
 
+      {/* Edit Tax Popup */}
+      {showEdittaxPopup && (
+        <div style={popupOverlayStyle}>
+          <div style={popupContainerStyle}>
+            <h2>Edit Tax</h2>
+            <label>Price:</label>
+            <input type="number" value={editedTaxPrice} onChange={(e) => setEditedTaxPrice(Number(e.target.value))} style={inputStyle} />
+            <label>Date:</label>
+            <input type="date" value={editedTaxDate} onChange={(e) => setEditedTaxDate(e.target.value)} style={inputStyle} />
 
+            <div style={buttonContainerStyle}>
+              <button onClick={handleUpdateTax} style={buttonStyle}>Save</button>
+              <button onClick={() => setShowEdittaxPopup(false)} style={closeButtonStyle}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
     </div>
   );
 };
@@ -336,70 +395,70 @@ export default UserProfile;
 
 
 const taxItemStyle: React.CSSProperties = {
-  marginBottom: "15px", // Space between tax items
+  marginBottom: "15px", 
   display: "flex",
-  justifyContent: "space-between", // Distributes space evenly between elements
-  alignItems: "center", // Align items vertically
-  gap: "70px", // Sets 
+  justifyContent: "space-between",
+  alignItems: "center", 
+  gap: "70px",
 };
 
 const taxDataStyle: React.CSSProperties = {
   display: "flex",
-  gap: "150px", // Space between price, date, and boat
-  flex: 1, // Ensures that tax data takes all available space, pushing the delete button to the right
-  justifyContent: "center", // Center the elements horizontally
-  alignItems: "center", // Center the elements vertically
+  gap: "150px", 
+  flex: 1,
+  justifyContent: "center", 
+  alignItems: "center",
 };
 
 const priceStyle: React.CSSProperties = {
-  fontWeight: "bold", // Makes the price bold
-  fontSize: "18px", // Font size for the price
+  fontWeight: "bold",
+  fontSize: "18px",
 };
 
 const dateStyle: React.CSSProperties = {
-  fontSize: "16px", // Font size for the date
-  color: "#666", // Lighter color for the date
+  fontSize: "16px",
+  color: "#666",
 };
 
 const boatStyle: React.CSSProperties = {
-  fontSize: "16px", // Font size for the boat name
-  color: "#333", // Darker color for the boat name
+  fontSize: "16px",
+  color: "#333",
 };
 
 const deleteButtonStyle: React.CSSProperties = {
-  padding: "8px 14px", // Increased padding for the delete button
-  fontSize: "14px", // Bigger font for the button
-  backgroundColor: "#f44336", // Red background for the delete button
+  padding: "8px 14px", 
+  fontSize: "14px",
+  backgroundColor: "#f44336",
   color: "#fff",
   border: "none",
   borderRadius: "4px",
-  cursor: "pointer", // Makes it interactive
-  transition: "background-color 0.3s ease", // Smooth transition for hover effect
+  cursor: "pointer", 
+  transition: "background-color 0.3s ease", 
 };
 
 
 const boatActionsContainerStyle: React.CSSProperties = {
   display: "flex",
   background: "#e0f7fa",
-  gap: "10px", // Optional: adds space between buttons
-  justifyContent: "center", // Center the buttons horizontally
-  marginBottom: "10px", // Optional: space between buttons and the boat card
+  gap: "10px",
+  justifyContent: "center",
+  marginBottom: "10px", 
 };
 
 const buttonStyle: React.CSSProperties = {
-  flex: 1, // Makes the button grow and fill the space equally
-  padding: "10px", // You can adjust the padding to make the button look better
-  fontSize: "14px", // Optional: control font size for consistency
-  textAlign: "center", // Center the text in the button
-  border: "1px solid #ccc", // Optional: style the border
-  borderRadius: "4px", // Optional: adds rounded corners to the buttons
-  backgroundColor: "#2196F3", // Blue background for the Edit button
-  color: "#fff", // White text for contrast
+  flex: 1,
+  padding: "10px",
+  fontSize: "14px", 
+  textAlign: "center", 
+  border: "1px solid #ccc", 
+  borderRadius: "4px", 
+  backgroundColor: "#2196F3", 
+  color: "#fff", 
 };
 
 const deleteBoatButtonStyle: React.CSSProperties = {
-  ...buttonStyle, // Inherit common styles from buttonStyle
-  backgroundColor: "#f44336", // Red background for delete button
+  ...buttonStyle,
+  backgroundColor: "#f44336",
 };
 
 const boatListStyle: React.CSSProperties = {
@@ -408,7 +467,7 @@ const boatListStyle: React.CSSProperties = {
   justifyContent: "center",
   gap: "15px",
   marginTop: "10px",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const pageContainerStyle: React.CSSProperties = {
@@ -418,7 +477,7 @@ const pageContainerStyle: React.CSSProperties = {
   flexDirection: "column",
   alignItems: "center",
   backgroundColor: "#f4f4f4",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const headerStyle: React.CSSProperties = {
@@ -428,7 +487,7 @@ const headerStyle: React.CSSProperties = {
   padding: "20px",
   textAlign: "center",
   fontSize: "1.5rem",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const mainContainerStyle: React.CSSProperties = {
@@ -447,7 +506,7 @@ const profileSectionStyle: React.CSSProperties = {
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   width: "45%",
   textAlign: "center",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const boatsSectionStyle: React.CSSProperties = {
@@ -457,19 +516,19 @@ const boatsSectionStyle: React.CSSProperties = {
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   width: "45%",
   textAlign: "center",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const loadingStyle: React.CSSProperties = {
   fontSize: "1.2rem",
   color: "#0077cc",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const errorStyle: React.CSSProperties = {
   fontSize: "1.2rem",
   color: "red",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const taxesCardContainerStyle: React.CSSProperties = {
@@ -486,27 +545,27 @@ const taxesSectionStyle: React.CSSProperties = {
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   width: "80%",
   textAlign: "center",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const taxesHeadingStyle: React.CSSProperties = {
   color: "#0077cc",
   fontSize: "1.5rem",
   marginBottom: "20px",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const sectionHeadingStyle: React.CSSProperties = {
   color: "#0077cc",
   fontSize: "1.5rem",
   marginBottom: "20px",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const taxesListStyle: React.CSSProperties = {
   listStyleType: "none",
   padding: 0,
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 
@@ -528,7 +587,7 @@ const popupContainerStyle: React.CSSProperties = {
   borderRadius: "10px",
   width: "400px",
   textAlign: "center",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const inputStyle: React.CSSProperties = {
@@ -537,7 +596,7 @@ const inputStyle: React.CSSProperties = {
   marginBottom: "10px",
   borderRadius: "5px",
   border: "1px solid #ccc",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const buttonContainerStyle: React.CSSProperties = {
@@ -553,7 +612,7 @@ const closeButtonStyle: React.CSSProperties = {
   border: "none",
   borderRadius: "5px",
   cursor: "pointer",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };
 
 const editProfileButtonStyle: React.CSSProperties = {
@@ -565,5 +624,5 @@ const editProfileButtonStyle: React.CSSProperties = {
   cursor: "pointer",
   fontSize: "1rem",
   marginTop: "20px",
-  fontFamily: "Arial, sans-serif", // Consistent font
+  fontFamily: "Arial, sans-serif",
 };

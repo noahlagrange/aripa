@@ -21,7 +21,7 @@ const RegisterPage: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        setError(null); // Reset error on new attempt
+        setError(null); 
 
         if (name.trim() === '') {
             setError('Name is required');
@@ -83,7 +83,6 @@ const RegisterPage: React.FC = () => {
     );
 };
 
-// Styles
 const styles = {
     container: {
         display: 'flex',

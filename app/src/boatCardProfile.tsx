@@ -92,7 +92,6 @@ const Boat = ({ boat }: { boat: { id: number; name: string; type: string } }) =>
 
 export default Boat;
 
-// ✅ Styles
 const boatCardStyle: React.CSSProperties = {
   background: "#e0f7fa",
   padding: "20px",

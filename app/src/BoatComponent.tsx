@@ -72,18 +72,18 @@ const style: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  height: '100vh',  // Full height of the viewport
+  height: '100vh', 
   justifyContent: 'center',
   fontSize: 'calc(10px + 2vmin)',
-  backgroundColor: '#f0f8ff',  // Light blue background
+  backgroundColor: '#f0f8ff',  
   fontFamily: 'Arial, sans-serif',
-  padding: '0',  // Remove any default padding
-  margin: '0',  // Remove any default margin
+  padding: '0',  
+  margin: '0',  
 };
 
 const bannerStyle: React.CSSProperties = {
-  width: '10%',  // Full width
-  background: 'linear-gradient(45deg, #2196F3, #64B5F6)',  // Gradient with blue shades
+  width: '10%',  
+  background: 'linear-gradient(45deg, #2196F3, #64B5F6)',  
   color: 'white',
   textAlign: 'center',
   padding: '30px',
@@ -109,7 +109,7 @@ const buttonContainerStyle: React.CSSProperties = {
 const buttonStyle: React.CSSProperties = {
   padding: '14px 28px',
   fontSize: '16px',
-  backgroundColor: '#2196F3',  // Blue button color
+  backgroundColor: '#2196F3', 
   color: 'white',
   border: 'none',
   borderRadius: '5px',
@@ -119,7 +119,7 @@ const buttonStyle: React.CSSProperties = {
 };
 
 const buttonHoverStyle: React.CSSProperties = {
-  backgroundColor: '#1976D2',  // Darker blue on hover
+  backgroundColor: '#1976D2',  
   transform: 'scale(1.05)',
 };
 
@@ -142,11 +142,11 @@ const seeMoreButtonHoverStyle: React.CSSProperties = {
 
 const cardsContainerStyle: React.CSSProperties = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr)',  // 4 columns in the grid
+  gridTemplateColumns: 'repeat(4, 1fr)',  
   gap: '25px',
   justifyContent: 'center',
   marginTop: '40px',
-  flex: 1,  // Ensure it takes remaining space if needed
+  flex: 1,  
 };
 
 
