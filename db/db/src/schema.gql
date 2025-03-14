@@ -1,0 +1,61 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Tax {
+  id: Float!
+  price: Int!
+  boatId: Int!
+  date: String!
+}
+
+type Boat {
+  id: Int!
+  name: String!
+  type: String!
+  owner: Int!
+  taxes: [Tax!]
+}
+
+type User {
+  id: Int!
+  name: String!
+  email: String!
+  phone: String!
+  boats: [Boat!]
+}
+
+type Account {
+  id: Float!
+  name: String!
+  password: String!
+}
+
+type Query {
+  users: [User!]!
+  user(id: Int!): User!
+  findUserBoatTaxes(userId: Int!): [Tax!]
+  boats: [Boat!]!
+  Boat(id: Int!): Boat
+  BoatTaxes(id: Int!): [Tax!]!
+  taxes: [Tax!]!
+  taxesByBoatId(boatId: Int!): [Tax!]!
+}
+
+type Mutation {
+  updateUser(id: Int!, name: String!, email: String!, phone: String!): User!
+  createUser(name: String!, email: String!, phone: String!): User!
+  addBoatToUser(userId: Int!, boatId: Int!): User!
+  removeBoatFromUser(userId: Int!, boatId: Int!): User!
+  deleteUser(id: Int!): User!
+  updateBoat(id: Int!, name: String!, type: String!): Boat!
+  createBoat(name: String!, type: String!, owner: Int!): Boat!
+  addTaxToBoat(boatId: Int!, taxId: Int!): Boat!
+  findBoatByOwner(owner: Int!): [Boat!]!
+  deleteBoatById(id: Int!): Boat!
+  createTax(price: Int!, boatId: Int!, date: String!): Tax!
+  deleteTaxById(id: Int!): Tax!
+  updateTaxById(id: Int!, price: Int!, date: String!): Tax!
+  createAccount(name: String!, password: String!): Account!
+  verifyAccount(name: String!, password: String!): Boolean!
+}
